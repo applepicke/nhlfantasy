@@ -45,7 +45,7 @@ class Player:
 		self.goals = int(cols[5].getText())
 		self.assists = int(cols[6].getText())
 		self.points = int(cols[7].getText())
-		self.plus_minus = cols[8].getText()
+		self.plus_minus = int(cols[8].getText()) + 60
 		self.pims = int(cols[9].getText())
 		self.ppg = int(cols[10].getText())
 		self.ppp = int(cols[11].getText())
