@@ -1,4 +1,5 @@
 import urllib2
+import argparse
 from BeautifulSoup import BeautifulSoup
 
 class Goalie:
@@ -60,6 +61,13 @@ left_wings = []
 right_wings = []
 centermen = []
 defense = []
+
+parser = argparse.ArgumentParser()
+
+parser.add_argument("player_columns", help="Comma separated player column values ie. 'goals,assists,hits' ")
+parser.add_argument("goalie_columns", help="Comma separated goalie column values ie. 'wins,save_percentage' ")
+
+args = parser.parse_args()
 
 for p in range(4):
 	page = urllib2.urlopen('http://www.nhl.com/ice/playerstats.htm?fetchKey=20142ALLGAGALL&viewName=summary&pg=%d' % (p + 1)).read()
@@ -129,10 +137,10 @@ def calc(groups, cats):
 
 
 PLAYER_GROUPS = [left_wings, right_wings, centermen, defense]
-PLAYER_CATS = ['goals', 'assists', 'plus_minus', 'pims', 'ppp', 'shots']
+PLAYER_CATS = args.player_columns.split(',')
 
 GOALIE_GROUPS = [goalies]
-GOALIE_CATS = ['wins', 'gaa', 'save_percentage', 'shutouts']
+GOALIE_CATS = args.goalie_columns.split(',')
 
 calc(PLAYER_GROUPS, PLAYER_CATS)
 calc(GOALIE_GROUPS, GOALIE_CATS)
